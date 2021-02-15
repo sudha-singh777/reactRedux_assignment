@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import {fetchApi} from '../../store/action/productAction';
 import TextField from '@material-ui/core/TextField';
 
-import {Checkbox,FormControlLabel,FormGroup} from '@material-ui/core/';
-
 class SearchData extends Component {
     constructor(props) {
         super(props)
@@ -13,31 +11,11 @@ class SearchData extends Component {
                 searchValue:'',      
             }
     }
-    //  componentDidMount(){
-    //     // let promiseFun = await this.props.fetchApi();
-    //     //  this.setState({loading:false}) 
-    //     console.log(this.props.allProducts,"product fil")
-    //     console.log(this.props.filterList,"product filter")
-    // }
 
     handleChange =(e)=>{
-       // console.log(e.target.checked);
         this.setState({searchValue:e.target.value})
         this.filterArray(e.target.value)
-        // if(e.target.name==="fourGb"){
-        //     this.setState({ fourGb: e.target.checked },
-        //         this.filterArray());
-        // }else if(e.target.name==="threeGb"){
-        //     this.setState({ threeGb: e.target.checked },
-        //         this.filterArray());
-        // }else{
-        //     this.setState({ sixGb: e.target.checked },
-        //         this.filterArray());
-        // }
-       
     }
-
-    
 
     filterArray=(searchItem)=>{
         setTimeout(()=>{
@@ -59,7 +37,7 @@ class SearchData extends Component {
         return (
             <React.Fragment>
             <Grid item>
-                <TextField id="input-with-icon-grid" label="With a grid" name="filterData"
+                <TextField id="input-with-icon-grid" label="Search Product" name="filterData"
                     value={this.state.searchValue}
                     onChange={this.handleChange}/>
             </Grid>
@@ -68,7 +46,6 @@ class SearchData extends Component {
     }
 }
 const mapStateToProps = state=>{
-    console.log(state,"state")
     return{
         allProList:state.pro
     }

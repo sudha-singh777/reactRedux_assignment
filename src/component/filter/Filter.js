@@ -14,16 +14,8 @@ class Filter extends Component {
                 sixGb: false       
             }
     }
-    //  componentDidMount(){
-    //     // let promiseFun = await this.props.fetchApi();
-    //     //  this.setState({loading:false}) 
-    //     console.log(this.props.allProducts,"product fil")
-    //     console.log(this.props.filterList,"product filter")
-    // }
 
-    handleChange =(e)=>{
-       // console.log(e.target.checked);
-       
+    handleChange =(e)=>{       
         if(e.target.name==="fourGb"){
             this.setState({ fourGb: e.target.checked },
                 this.filterArray());
@@ -37,8 +29,6 @@ class Filter extends Component {
        
     }
 
-    
-
     filterArray=()=>{
         setTimeout(()=>{
         let filterArray = this.props.allProducts.filter(product => 
@@ -46,14 +36,12 @@ class Filter extends Component {
             (this.state.fourGb && product.ram === 4)  || 
             (this.state.threeGb && product.ram === 3)
             )
-            console.log(filterArray,"filArray")
             this.props.filterList(filterArray)
             if(!this.state.sixGb && !this.state.fourGb && !this.state.threeGb){
                 this.props.filterList(this.props.allProducts)
             }
         },1000)
-       
-            
+                   
     }
     render() {
         const {allProList} = this.props;
@@ -92,7 +80,6 @@ class Filter extends Component {
     }
 }
 const mapStateToProps = state=>{
-    console.log(state,"state")
     return{
         allProList:state.pro
     }

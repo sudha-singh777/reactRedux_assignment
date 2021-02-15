@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Pagination,PaginationItem} from '@material-ui/lab/';
+import {Pagination} from '@material-ui/lab/';
 import ProductList from '../productList/ProductList';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,13 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// function handleClick(e,offset) {
-//   console.log(offset,"offset",e);
-//     //this.setState({ offset });
-//   }
-
 const PaginationOutlined = (props)=> {
-  //const classes = useStyles();
   const classes = useStyles();
   const itemsPerPage = 3;
   const [page, setPage] = React.useState(1);
@@ -33,7 +27,6 @@ const PaginationOutlined = (props)=> {
     setPage(value);
   };
 
-  console.log(props.allProList,"::::::::::::::")
   return (
     <div className={classes.root}>
     <ProductList allProList={props.allProList}
@@ -51,10 +44,6 @@ const PaginationOutlined = (props)=> {
           showLastButton
           classes={{ ul: classes.paginator }}
         />
-      {/*<Pagination count={10} variant="outlined" color="secondary"
-      className={classes.root} 
-      onChange={(offset) => handleClick(offset)}
-  />*/}
     </div>
   );
 }

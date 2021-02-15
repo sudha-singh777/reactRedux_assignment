@@ -1,10 +1,5 @@
 import { FETCH_MOBILE_API } from '../type';
 
-// const initialState = {
-//     pending: false,
-//     products: [],
-//     error: null
-// }
 const productReducer = (state = {}, action) => {
     switch (action.type) {
 

@@ -1,43 +1,45 @@
 import React, { Component } from 'react';
-import {Grid, Card, Paper, Typography, ButtonBase,Button,spacing } from '@material-ui/core';
+import {Grid, Card, Paper, Typography, ButtonBase,Button} from '@material-ui/core';
 import '../../assest/ProductList.css';
-
 import { connect } from 'react-redux';
-import {fetchApi} from '../../store/action/productAction';
 import {addToCart} from '../../store/action/cartAction';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+//import Paper from '@material-ui/core/Paper';
+
+
 class ProductList extends Component {
-    constructor(props) {
-        super(props)
-            this.state={
-               // loading:true,          
-            }
-    }
-     componentDidMount(){
-       // let promiseFun = await this.props.fetchApi();
-        // this.setState({loading:false}) 
-    }
+
     render() {
         const {allProList} = this.props;
-        console.log(allProList,"dd")
         return (
             <React.Fragment>
-                
-                <Grid item >
-                    <h2 style={{ textAlign: 'center',}} >Products</h2>
-                    {(allProList && allProList.length>0)? allProList.reverse()
-                        .slice((this.props.page - 1) * this.props.itemsPerPage,
-                         this.props.page * this.props.itemsPerPage)
-                        .map((data)=>(
-                        <Card className="proList" variant="outlined" key={data.id}>
-                            <Paper className="paper">
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={3} md={4} lg={4} >
+                <TableContainer component={Paper}>
+                    <Table  aria-label="simple table">
+                        <TableHead>
+                        <TableRow>
+                            <TableCell colSpan={3} align='center'><h2>Product List</h2></TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {(allProList && allProList.length>0)? allProList.reverse()
+                                        .slice((this.props.page - 1) * this.props.itemsPerPage,
+                                        this.props.page * this.props.itemsPerPage)
+                                        .map((data)=>(
+                            <TableRow key={data.id}>
+                            <TableCell>
+                                <Grid item>
                                     <ButtonBase className="image">
                                         <img className="img" alt="complex" src={data.image} />
                                     </ButtonBase>
                                 </Grid>
-                                <Grid item xs={12} sm={7} md={6} lg={6} container direction="column" spacing={2}>
+                            </TableCell>
+                            <TableCell>
                                     <Grid item>
                                         <Typography gutterBottom variant="subtitle1" color="secondary">
                                                 {data.name} ({data.internal_storage}GB)
@@ -46,7 +48,7 @@ class ProductList extends Component {
                                                 {data.brand} 
                                         </Typography>
                                         <Typography variant="body2" gutterBottom>
-                                               {data.ram} GB RAM | {data.internal_storage} GB ROM
+                                            {data.ram} GB RAM | {data.internal_storage} GB ROM
                                         </Typography>
                                         <Typography variant="body2">
                                                 {data.battery_capacity} mAh Battery
@@ -58,37 +60,34 @@ class ProductList extends Component {
                                                 {data.operating_system} Operating System
                                         </Typography>
                                         <Typography variant="body2">
-                                                {data.resolution_type} Resolution
+                                            {data.resolution_type} Resolution
                                         </Typography>
-                                        
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} sm={2} md={2} lg={2} spacing={2}  mx="auto">
+                                                        
+                                        </Grid>
+                            </TableCell>
+                            <TableCell>
+                                <Grid item>
                                     <Typography variant="subtitle1">${data.price}</Typography>
-                                    
-                                    <Button color="primary"  mx="auto"
-                                    onClick={()=>this.props.addToCart(data)}
-                                    variant="outlined">ADD TO CART
-                                    </Button>
-                                    
+                                                    
+                                        <Button color="primary"  mx="auto"
+                                        onClick={()=>this.props.addToCart(data)}
+                                        variant="outlined">ADD TO CART
+                                        </Button>
+                                                    
                                 </Grid>
-                                
-                            </Grid>
-                            </Paper>
-                        </Card>
-                        )): <div>Loading...</div> 
-                    }
-                        
-                </Grid>
+                            </TableCell>
+                            </TableRow>
+                            )): 
+                            <TableRow>
+                                <TableCell align="center">no data</TableCell>
+                            </TableRow> 
+                                    }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </React.Fragment>
         );
     }
 }
-// const mapStateToProps = state=>{
-//    // console.log(state,"state")
-//     return{
-//         allProList:state.pro
-//     }
-// }
-//export default connect(mapStateToProps,{fetchApi, addToCart})(ProductList);
+
 export default connect(null,{addToCart})(ProductList);

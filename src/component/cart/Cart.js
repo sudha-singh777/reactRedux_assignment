@@ -3,27 +3,25 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {Typography,Container,Grid,ButtonGroup,Button } from '@material-ui/core/';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-
 import { connect } from 'react-redux';
 import {increaseQuantity,decreaseQuantity} from '../../store/action/cartAction';
+import LayHeader from '../layout/LayHeader';
 
 
 class Cart extends Component {
     constructor(props){
         super(props)
         this.state={
-            cart:[]
+            cart:[],
+            quantity:''
         }
     }
     componentDidMount(){
         let cartItem = JSON.parse(localStorage.getItem('cartValue'));
-        this.setState({cart:cartItem})
-        console.log(this.state.cart,"sfa")
+        this.setState({cart:cartItem})   
     }
 
     updateCartItems=(cartData,checkUpdate)=>{
-       
-        console.log(this.state.cart,"sfa")
         if(checkUpdate==="increment"){
             this.props.increaseQuantity(cartData.id)
         }else{
@@ -32,14 +30,23 @@ class Cart extends Component {
         
         setTimeout(()=>{
             let cartItem = JSON.parse(localStorage.getItem('cartValue'));
-            this.setState({cart:cartItem})
+            const totalQuantity= cartItem.reduce((accumulator, current) =>
+             accumulator + parseFloat(current.count),0);
+            //this.setState({quantity:totalQuantity})
+            this.setState({cart:cartItem,quantity:totalQuantity})
+            console.log(this.state.quantity,"????????????????????");
         },500)
     }
+
+    // const LocalStoreData = JSON.parse(localStorage.getItem('cartValue'))
+    //    const totalQuantity= LocalStoreData.reduce((accumulator, current) =>
+    //          accumulator + parseFloat(current.count),0);
+    //     this.setState({quantity:totalQuantity})
     render() {
         const { cart } = this.state;
-        console.log(cart,"euw")
         return (
             <React.Fragment>
+            <LayHeader quantity={this.state.quantity}/>
                 <CssBaseline />
                     <Container maxWidth="md">
                         <Typography component="div" style={{ backgroundColor: '#cfe8fc'}} >
